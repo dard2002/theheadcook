@@ -24,7 +24,8 @@ struct SelectIngredientsView: View {
             List {
                 ForEach(ingredients, id: \.id) { ingredient in
                     Text("\(ingredient.name)")
-                    Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
+                    Text("Quantity: \(ingredient.quantity)\(ingredient.quantityUnits)")
+                    Button(action: {/* Todo */}, label: {(Text("Add To Recipe"))})
                 }
             }
             
