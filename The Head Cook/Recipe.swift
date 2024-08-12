@@ -12,10 +12,10 @@ import SwiftData
 final class Recipe {
     var id: Int
     var name: String
-    var ingredients: [String]
+    var ingredients: [Ingredient]
     var instructions: String
     
-    init(id: Int, name: String, ingredients: [String], instructions: String) {
+    init(id: Int, name: String, ingredients: [Ingredient], instructions: String) {
         self.id = id
         self.name = name
         self.ingredients = ingredients
