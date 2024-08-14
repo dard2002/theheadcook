@@ -15,46 +15,66 @@ struct SelectIngredientsView: View {
     @State private var ingredientName: String = ""
     @State private var ingredientQuantity: String = "0"
     @State private var ingredientQuantityUnits: String = "g"
+    @State private var recipeIngredients: [Ingredient] = []
+    @Binding var currentRecipe: Recipe
     
     var body: some View {
-        VStack(alignment: .center) {
-            Text("Now, let's pick some ingredients!")
-            Text("\nIngredients to select from:")
-            
-            List {
-                ForEach(ingredients, id: \.id) { ingredient in
-                    Text("\(ingredient.name)")
-                    Text("Quantity: \(ingredient.quantity)\(ingredient.quantityUnits)")
-                    Button(action: {/* Todo */}, label: {(Text("Add To Recipe"))})
+            VStack {
+                Text("Now, let's pick some ingredients!\nIngredients to select from:")
+                
+                List {
+                    ScrollView {
+                        ForEach(ingredients, id: \.id) { ingredient in
+                            Text("\(ingredient.name)")
+                            Text("Quantity: \(ingredient.quantity)\(ingredient.quantityUnits)")
+                            Button(action: {addIngredientToRecipe(ingredient: ingredient)}, label: {(Text("Add To Recipe"))})
+                    }
                 }
+                    
             }
-            
-            Text("Add a new ingredient:")
-            TextField("Ingredient Name", text: $ingredientName)
-            TextField("Ingredient Quantity", text: $ingredientQuantity)
-            TextField("Ingredient Quantity's Unit of Measurement", text: $ingredientQuantityUnits)
-            
-            Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
+                Text("Ingredients in the recipe:")
+                
+                List {
+                    ScrollView {
+                        ForEach(currentRecipe.ingredients, id: \.id) { ingredient in
+                            Text("\(ingredient.name)")
+                            Text("Quantity: \(ingredient.quantity)\(ingredient.quantityUnits)")
+                            Button(action: {removeIngredientFromRecipe(index: ingredient.id)}, label: {(Text("Remove from Recipe"))})
+                        }
+                    }
+                }
+                Text("Add a new ingredient:")
+                TextField("Ingredient Name", text: $ingredientName)
+                TextField("Ingredient Quantity", text: $ingredientQuantity)
+                TextField("Ingredient Quantity's Unit of Measurement", text: $ingredientQuantityUnits)
+                
+                Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
                 Text("New Ingredient")
             )})
         }
     }
     
-    private func addIngredient(name: String, quantity: Int, quantityUnits: String) -> Void {
-        var fetchDescriptor = FetchDescriptor<Ingredient>()
-        fetchDescriptor.propertiesToFetch = [\.id]
-        
-        do {
-            let id: Int = try modelContext.fetch(fetchDescriptor).count
-            modelContext.insert(Ingredient(id: id+1, name: name, quantity: quantity, quantityUnits: quantityUnits))
-        } catch {
-            print("An error has occured whilst trying to add an ingredient.")
+    private func addIngredientToRecipe(ingredient: Ingredient) -> Void {
+        withAnimation {
+            currentRecipe.ingredients.append(ingredient)
         }
-        
     }
-}
-
-#Preview {
-    SelectIngredientsView()
-        .modelContainer(for: Ingredient.self, inMemory: true)
+    
+    private func removeIngredientFromRecipe(index: Int) -> Void {
+        currentRecipe.ingredients.remove(at: index)
+    }
+    
+    private func addIngredient(name: String, quantity: Int, quantityUnits: String) -> Void {
+        withAnimation {
+            var fetchDescriptor = FetchDescriptor<Ingredient>()
+            fetchDescriptor.propertiesToFetch = [\.id]
+            
+            do {
+                let id: Int = try modelContext.fetch(fetchDescriptor).count
+                modelContext.insert(Ingredient(id: id+1, name: name, quantity: quantity, quantityUnits: quantityUnits))
+            } catch {
+                print("An error has occured whilst trying to add an ingredient.")
+            }
+        }
+    }
 }

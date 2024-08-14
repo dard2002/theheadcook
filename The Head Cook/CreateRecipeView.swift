@@ -9,10 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct CreateRecipeView: View {
-    // @Environment(\.modelContext) private var modelContext
-    // @Query private var recipes: [Recipe]
+    @Environment(\.modelContext) private var modelContext
     @State private var recipeName: String = ""
     @State private var showIngredientsSection: Bool = false
+    @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "")
     
     var body: some View {
         VStack(alignment: .center) {
@@ -23,11 +23,19 @@ struct CreateRecipeView: View {
                 Text("Next")
             })
             
-            showIngredientsSection ? SelectIngredientsView() : nil
+            showIngredientsSection ? SelectIngredientsView(currentRecipe: $currentRecipe) : nil
         }
     }
-}
-
-#Preview {
-    CreateRecipeView()
+    
+    private func createInitialRecipe() -> Void {
+        var fetchDescriptor = FetchDescriptor<Recipe>()
+        fetchDescriptor.propertiesToFetch = [\.id]
+        
+        do {
+            let id: Int = try modelContext.fetch(fetchDescriptor).count
+            modelContext.insert(Recipe(id: id+1, name: recipeName, ingredients: [], instructions: ""))
+        } catch {
+            print("An error has occured whilst trying to add a recipe.")
+        }
+    }
 }
