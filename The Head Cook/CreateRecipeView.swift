@@ -19,7 +19,7 @@ struct CreateRecipeView: View {
             Text("First, let's name your recipe:")
             TextField("Name your recipe here!", text: $recipeName)
             
-            Button(action: { showIngredientsSection = true }, label: {
+            Button(action: { createInitialRecipe(); showIngredientsSection = true }, label: {
                 Text("Next")
             })
             

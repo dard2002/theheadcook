@@ -14,9 +14,12 @@ struct ContentView: View {
 
     var body: some View {
         TabView {
-                CreateRecipeView().tabItem {
-                    Label("Create Recipe", systemImage: "cross.circle.fill")
-                }
+            DashboardView().tabItem {
+                Label("Dashboard", systemImage: "clock.fill")
+            }
+            CreateRecipeView().tabItem {
+                Label("Create Recipe", systemImage: "cross.circle.fill")
+            }
         }
     }
 }

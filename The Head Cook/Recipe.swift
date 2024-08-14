@@ -14,11 +14,13 @@ final class Recipe {
     var name: String
     var ingredients: [Ingredient]
     var instructions: String
+    var favourite: Bool
     
     init(id: Int, name: String, ingredients: [Ingredient], instructions: String) {
         self.id = id
         self.name = name
         self.ingredients = ingredients
         self.instructions = instructions
+        self.favourite = false
     }
 }
