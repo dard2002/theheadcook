@@ -15,12 +15,22 @@ final class Recipe {
     var ingredients: [Ingredient]
     var instructions: String
     var favourite: Bool
+    var imageName: String
+    var mealTime: mealTimes
     
-    init(id: Int, name: String, ingredients: [Ingredient], instructions: String) {
+    enum mealTimes: Codable {
+        case Breakfast,
+        Lunch,
+        Dinner
+    }
+    
+    init(id: Int, name: String, ingredients: [Ingredient], instructions: String, favourite: Bool, imageName: String, mealTime: mealTimes) {
         self.id = id
         self.name = name
         self.ingredients = ingredients
         self.instructions = instructions
-        self.favourite = false
+        self.favourite = favourite
+        self.imageName = imageName
+        self.mealTime = mealTime
     }
 }

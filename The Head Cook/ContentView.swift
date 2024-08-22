@@ -20,6 +20,9 @@ struct ContentView: View {
             CreateRecipeView().tabItem {
                 Label("Create Recipe", systemImage: "cross.circle.fill")
             }
+            MealPlannerView().tabItem {
+                Label("Meal Planner", systemImage: "calendar.fill")
+            }
         }
     }
 }

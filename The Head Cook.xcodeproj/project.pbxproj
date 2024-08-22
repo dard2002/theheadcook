@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		FC1A79152C6CB22D000A3399 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1A79142C6CB22D000A3399 /* DashboardView.swift */; };
+		FC7109962C71D257000AD0CD /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7109952C71D257000AD0CD /* Day.swift */; };
+		FC7109992C71D520000AD0CD /* MealPlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7109982C71D520000AD0CD /* MealPlannerView.swift */; };
+		FC77D8A92C776422003D565E /* SelectIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC77D8A82C776422003D565E /* SelectIngredientsView.swift */; };
+		FC77D8AB2C7774ED003D565E /* SelectInstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC77D8AA2C7774ED003D565E /* SelectInstructionsView.swift */; };
+		FC77D8AD2C7774FA003D565E /* SelectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC77D8AC2C7774FA003D565E /* SelectImageView.swift */; };
 		FC997E8A2C6A53F3004D05C3 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC997E892C6A53F3004D05C3 /* CreateRecipeView.swift */; };
-		FC997E8C2C6A589E004D05C3 /* SelectIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC997E8B2C6A589E004D05C3 /* SelectIngredientsView.swift */; };
 		FC997E902C6A59C9004D05C3 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC997E8F2C6A59C9004D05C3 /* Ingredient.swift */; };
 		FCF565132C6A4E83005FC45A /* The_Head_CookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF565122C6A4E83005FC45A /* The_Head_CookApp.swift */; };
 		FCF565152C6A4E83005FC45A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF565142C6A4E83005FC45A /* ContentView.swift */; };
@@ -40,8 +44,12 @@
 
 /* Begin PBXFileReference section */
 		FC1A79142C6CB22D000A3399 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		FC7109952C71D257000AD0CD /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		FC7109982C71D520000AD0CD /* MealPlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlannerView.swift; sourceTree = "<group>"; };
+		FC77D8A82C776422003D565E /* SelectIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIngredientsView.swift; sourceTree = "<group>"; };
+		FC77D8AA2C7774ED003D565E /* SelectInstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInstructionsView.swift; sourceTree = "<group>"; };
+		FC77D8AC2C7774FA003D565E /* SelectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageView.swift; sourceTree = "<group>"; };
 		FC997E892C6A53F3004D05C3 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
-		FC997E8B2C6A589E004D05C3 /* SelectIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectIngredientsView.swift; sourceTree = "<group>"; };
 		FC997E8F2C6A59C9004D05C3 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		FCE72A9E2C6A51DF00242928 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		FCF5650F2C6A4E83005FC45A /* The Head Cook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Head Cook.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +90,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC7109972C71D513000AD0CD /* Meal Planner */ = {
+			isa = PBXGroup;
+			children = (
+				FC7109982C71D520000AD0CD /* MealPlannerView.swift */,
+			);
+			path = "Meal Planner";
+			sourceTree = "<group>";
+		};
+		FC7835662C6CCF8600449B7F /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				FC1A79142C6CB22D000A3399 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		FC7835692C6CDEC500449B7F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FCF5653F2C6A4F3D005FC45A /* Recipe.swift */,
+				FC997E8F2C6A59C9004D05C3 /* Ingredient.swift */,
+				FC7109952C71D257000AD0CD /* Day.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FC78356A2C6CDED500449B7F /* Create Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				FC997E892C6A53F3004D05C3 /* CreateRecipeView.swift */,
+				FC77D8A82C776422003D565E /* SelectIngredientsView.swift */,
+				FC77D8AA2C7774ED003D565E /* SelectInstructionsView.swift */,
+				FC77D8AC2C7774FA003D565E /* SelectImageView.swift */,
+			);
+			path = "Create Recipe";
+			sourceTree = "<group>";
+		};
 		FCE72A9D2C6A51DF00242928 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,15 +159,14 @@
 		FCF565112C6A4E83005FC45A /* The Head Cook */ = {
 			isa = PBXGroup;
 			children = (
+				FC7109972C71D513000AD0CD /* Meal Planner */,
+				FC78356A2C6CDED500449B7F /* Create Recipe */,
+				FC7835692C6CDEC500449B7F /* Models */,
+				FC7835662C6CCF8600449B7F /* Dashboard */,
 				FCF565122C6A4E83005FC45A /* The_Head_CookApp.swift */,
 				FCF565142C6A4E83005FC45A /* ContentView.swift */,
 				FCF565182C6A4E84005FC45A /* Assets.xcassets */,
 				FCF5651A2C6A4E84005FC45A /* Preview Content */,
-				FCF5653F2C6A4F3D005FC45A /* Recipe.swift */,
-				FC997E892C6A53F3004D05C3 /* CreateRecipeView.swift */,
-				FC997E8B2C6A589E004D05C3 /* SelectIngredientsView.swift */,
-				FC997E8F2C6A59C9004D05C3 /* Ingredient.swift */,
-				FC1A79142C6CB22D000A3399 /* DashboardView.swift */,
 			);
 			path = "The Head Cook";
 			sourceTree = "<group>";
@@ -282,10 +326,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC997E8C2C6A589E004D05C3 /* SelectIngredientsView.swift in Sources */,
 				FC997E8A2C6A53F3004D05C3 /* CreateRecipeView.swift in Sources */,
+				FC77D8A92C776422003D565E /* SelectIngredientsView.swift in Sources */,
 				FC997E902C6A59C9004D05C3 /* Ingredient.swift in Sources */,
+				FC77D8AB2C7774ED003D565E /* SelectInstructionsView.swift in Sources */,
+				FC77D8AD2C7774FA003D565E /* SelectImageView.swift in Sources */,
+				FC7109992C71D520000AD0CD /* MealPlannerView.swift in Sources */,
 				FC1A79152C6CB22D000A3399 /* DashboardView.swift in Sources */,
+				FC7109962C71D257000AD0CD /* Day.swift in Sources */,
 				FCF565402C6A4F3D005FC45A /* Recipe.swift in Sources */,
 				FCF565152C6A4E83005FC45A /* ContentView.swift in Sources */,
 				FCF565132C6A4E83005FC45A /* The_Head_CookApp.swift in Sources */,

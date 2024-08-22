@@ -13,6 +13,7 @@ struct The_Head_CookApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Recipe.self,
+            Day.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

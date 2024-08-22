@@ -12,7 +12,7 @@ struct CreateRecipeView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var recipeName: String = ""
     @State private var showIngredientsSection: Bool = false
-    @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "")
+    @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: false, imageName: "", mealTime: Recipe.mealTimes.Dinner)
     
     var body: some View {
         VStack(alignment: .center) {
@@ -33,7 +33,7 @@ struct CreateRecipeView: View {
         
         do {
             let id: Int = try modelContext.fetch(fetchDescriptor).count
-            modelContext.insert(Recipe(id: id+1, name: recipeName, ingredients: [], instructions: ""))
+            modelContext.insert(Recipe(id: id, name: recipeName, ingredients: [], instructions: "", favourite: false, imageName: "", mealTime: Recipe.mealTimes.Dinner))
         } catch {
             print("An error has occured whilst trying to add a recipe.")
         }
