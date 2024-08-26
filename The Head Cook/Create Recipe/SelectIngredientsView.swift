@@ -30,7 +30,6 @@ struct SelectIngredientsView: View {
                         Button(action: {addIngredientToRecipe(ingredient: ingredient)}, label: {(Text("Add To Recipe"))})
                     }
                 }
-                
             }
             
             Text("Ingredients in the recipe:")
@@ -54,6 +53,7 @@ struct SelectIngredientsView: View {
                     Text($0)
                 }
             }
+            
             Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
                 Text("New Ingredient")
             )})
@@ -77,17 +77,19 @@ struct SelectIngredientsView: View {
     }
     
     private func addIngredient(name: String, quantity: Int, quantityUnits: String) -> Void {
-        withAnimation {
-            var fetchDescriptor = FetchDescriptor<Ingredient>()
-            fetchDescriptor.propertiesToFetch = [\.id]
+        // Fetch the id property from the ingredients, this is used for later to fetch the count of ingredients by id in SwiftData
+        var fetchDescriptor = FetchDescriptor<Ingredient>()
+        fetchDescriptor.propertiesToFetch = [\.id]
+        
+        do {
+            // Fetch the count of ingredients by id, to determine the id (in SwiftData) of the new ingredient to be added
+            let id: Int = try modelContext.fetch(fetchDescriptor).count
             
-            do {
-                let id: Int = try modelContext.fetch(fetchDescriptor).count
-                modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits))
-
-            } catch {
-                print("An error has occured whilst trying to add an ingredient.")
-            }
+            // Add the new Ingredient with the new Id, and insert it into SwiftData
+            modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits))
+        } catch {
+            // If the ingredient does not add properly, show the error
+            print("An error has occurred whilst trying to add an ingredient: \(error)")
         }
     }
 }
