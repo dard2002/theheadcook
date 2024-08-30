@@ -61,15 +61,18 @@ struct SelectIngredientsView: View {
                     Text("New Ingredient")
                     TextField("Name", text: $ingredientName)
                     TextField("Quantity", text: $ingredientQuantity)
-                Picker("Units", selection: $ingredientQuantityUnits) {
-                    ForEach(unitsOfMeasurement, id: \.self) {
-                        Text($0)
-                    }
-                }
                 
-                Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
-                        Text("+")
-                )})
+                HStack {
+                    Picker("Units", selection: $ingredientQuantityUnits) {
+                        ForEach(unitsOfMeasurement, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    
+                    Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
+                            Text("Create")
+                    )})
+                }
             }
         }
     }
@@ -101,6 +104,10 @@ struct SelectIngredientsView: View {
             
             // Add the new Ingredient with the new Id, and insert it into SwiftData
             modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits))
+            
+            ingredientName = ""
+            ingredientQuantity = ""
+            
         } catch {
             // If the ingredient does not add properly, show the error
             print("An error has occurred whilst trying to add an ingredient: \(error)")
