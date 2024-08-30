@@ -20,43 +20,57 @@ struct SelectIngredientsView: View {
     
     var body: some View {
         VStack {
-            Text("Now, let's pick some ingredients!\nIngredients to select from:")
+            HStack {
+                Text("1").font(.title2).bold().padding().frame(maxWidth: (UIScreen.main.bounds.width - 32.0) * 0.2, alignment: .leading)
+                Text("Add Ingredients to Recipe").frame(maxWidth: (UIScreen.main.bounds.width - 32.0) * 0.7, alignment: .leading)
+            }
             Spacer()
             List {
                 ScrollView {
-                    ForEach(ingredients, id: \.id) { ingredient in
-                        Text("\(ingredient.name)")
-                        Text("Quantity: \(ingredient.quantity) \(ingredient.quantityUnits)")
-                        Button(action: {addIngredientToRecipe(ingredient: ingredient)}, label: {(Text("Add To Recipe"))})
+                    ForEach(ingredients.sorted(by: { $0.name < $1.name } ), id: \.id) { ingredient in
+                        VStack {
+                            Text("\(ingredient.name)")
+                            Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
+                            Button(action: {addIngredientToRecipe(ingredient: ingredient)}, label: {(Text("Add To Recipe"))})
+                        }
+                        
+                        Divider()
                     }
                 }
+            }.frame(maxHeight: (UIScreen.main.bounds.height - 32) * 0.275)
+            Spacer()
+            HStack {
+                Text("2").font(.title2).bold().padding().frame(maxWidth: (UIScreen.main.bounds.width - 32.0) * 0.2, alignment: .leading)
+                Text("Confirm Ingredients in Recipe").frame(maxWidth: (UIScreen.main.bounds.width - 32.0) * 0.7, alignment: .leading)
             }
-            
-            Text("Ingredients in the recipe:")
             Spacer()
             List {
                 ScrollView {
-                    ForEach(currentRecipe.ingredients, id: \.id) { ingredient in
-                        Text("\(ingredient.name)")
-                        Text("Quantity: \(ingredient.quantity) \(ingredient.quantityUnits)")
-                        Button(action: {removeIngredientFromRecipe(ingredient: ingredient)}, label: {(Text("Remove from Recipe"))})
+                    ForEach(currentRecipe.ingredients.sorted(by: { $0.name < $1.name } ), id: \.id) { ingredient in
+                        VStack {
+                            Text("\(ingredient.name)")
+                            Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
+                            Button(action: {removeIngredientFromRecipe(ingredient: ingredient)}, label: {(Text("Remove from Recipe"))})
+                        }
+                        Divider()
                     }
                 }
-            }
+            }.frame(maxHeight: (UIScreen.main.bounds.height - 32) * 0.275)
             
-            Text("Add a new ingredient:")
-            Spacer()
-            TextField("Ingredient Name", text: $ingredientName)
-            TextField("Ingredient Quantity", text: $ingredientQuantity)
-            Picker("Ingredient Quantity Measurement", selection: $ingredientQuantityUnits) {
-                ForEach(unitsOfMeasurement, id: \.self) {
-                    Text($0)
+            VStack {
+                    Text("New Ingredient")
+                    TextField("Name", text: $ingredientName)
+                    TextField("Quantity", text: $ingredientQuantity)
+                Picker("Units", selection: $ingredientQuantityUnits) {
+                    ForEach(unitsOfMeasurement, id: \.self) {
+                        Text($0)
+                    }
                 }
+                
+                Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
+                        Text("+")
+                )})
             }
-            
-            Button(action: {addIngredient(name: ingredientName, quantity: Int(ingredientQuantity) ?? 0, quantityUnits: ingredientQuantityUnits)}, label: {(
-                Text("New Ingredient")
-            )})
         }
     }
     

@@ -12,24 +12,26 @@ struct CreateRecipeView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var recipeName: String = ""
     @FocusState private var showKeyboard: Bool
-    @FocusState private var showIngredientsSection: Bool
+    @State private var showIngredientsSection: Bool = false
     @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: false, imageName: "", mealTime: Recipe.mealTimes.Dinner)
     
     var body: some View {
         VStack {
-            Text("First, let's name your recipe:")
-            TextField("Tap here to edit", text: $recipeName).focused($showKeyboard)
-            
-            Button(action: {
-                showKeyboard = false
-                createInitialRecipe()
-                showIngredientsSection = true
-            }, label: {
-                Text("Next")
-            })
-            
-            showIngredientsSection ? SelectIngredientsView(currentRecipe: $currentRecipe) : nil
-        }.padding().frame(width: 300, height: 500)
+            if(!showIngredientsSection) {
+                Text("First, let's name your recipe:")
+                TextField("Tap here to edit", text: $recipeName).focused($showKeyboard)
+                
+                Button(action: {
+                    showKeyboard = false
+                    createInitialRecipe()
+                    showIngredientsSection = true
+                }, label: {
+                    Text("Next")
+                })
+            } else {
+                SelectIngredientsView(currentRecipe: $currentRecipe)
+            }
+        }
     }
     
     private func createInitialRecipe() -> Void {
