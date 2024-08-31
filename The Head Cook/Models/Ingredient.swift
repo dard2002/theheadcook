@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Ingredient {
+final class Ingredient: ObservableObject, Identifiable {
     var id: Int
     var name: String
     var quantity: Int
