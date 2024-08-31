@@ -47,7 +47,7 @@ struct SelectIngredientsView: View {
                             Divider()
                         }
                     }
-                }.frame(maxHeight: (UIScreen.main.bounds.height - 32) * 0.275)
+                }
                 Spacer()
                 HStack {
                     Text("2").font(.title2).bold().padding().frame(maxWidth: (UIScreen.main.bounds.width - 32.0) * 0.2, alignment: .leading)
@@ -64,10 +64,10 @@ struct SelectIngredientsView: View {
                             Divider()
                         }
                     }
-                }.frame(maxHeight: (UIScreen.main.bounds.height - 32) * 0.275)
+                }
             }
             
-            VStack {
+            HStack {
                 Button(action: { showCreateIngredientView = true }, label: {(
                     Text("Create New Ingredient")
                 )}).buttonStyle(.borderedProminent).tint(.green).padding()
