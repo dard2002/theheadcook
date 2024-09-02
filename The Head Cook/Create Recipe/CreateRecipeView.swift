@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct CreateRecipeView: View {
+struct CreateRecipeView: View {     
     @Environment(\.modelContext) private var modelContext
     @State private var recipeName: String = ""
     @FocusState private var showKeyboard: Bool
