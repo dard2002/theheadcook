@@ -15,6 +15,7 @@ struct CreateIngredientView: View {
     @State private var ingredientQuantityUnits: String = "grams"
     @State private var unitsOfMeasurement: [String] = ["grams", "tablespoons", "teaspoons", "cups", "millileters"]
     @State private var showAlert: Bool = false
+    @FocusState private var showKeyboard: Bool
     @Binding var showCreateIngredientView: Bool
     @Binding var currentRecipe: Recipe
     
@@ -22,9 +23,9 @@ struct CreateIngredientView: View {
         // Display the Create Ingredient View's core content, if this view should be displayed
         if(showCreateIngredientView) {
             VStack {
-                    Text("New Ingredient")
-                    TextField("Name", text: $ingredientName)
-                    TextField("Quantity", text: $ingredientQuantity)
+                Text("New Ingredient")
+                TextField("Name", text: $ingredientName).focused($showKeyboard)
+                TextField("Quantity", text: $ingredientQuantity).focused($showKeyboard)
                 
                 HStack {
                     Text("Units:")
@@ -36,7 +37,7 @@ struct CreateIngredientView: View {
                 }
                 
                 Button(action: { discard() }, label: {(
-                        Text("Discard (Go Back)")
+                    Text("Discard (Go Back)")
                 )}).buttonStyle(.borderedProminent).tint(.red).padding()
                 
                 Button(action: {
@@ -47,7 +48,7 @@ struct CreateIngredientView: View {
                         showAlert = true
                     }
                 }, label: {(
-                        Text("Create Ingredient")
+                    Text("Create Ingredient")
                 )}).alert(isPresented: $showAlert) {
                     Alert(title: (Text("Please fix the following")), message: (Text("\(ingredientName.isEmpty ? "Add an ingredient name\n" : "")\(ingredientQuantity.isEmpty ? "Add a quantity of the ingredient" : "")\(ingredientQuantityUnits.isEmpty ? "Select a unit of quantity using the dropdown" : "")")))
                 }.buttonStyle(.borderedProminent).tint(.green).padding()
@@ -58,7 +59,7 @@ struct CreateIngredientView: View {
         }
     }
     
-    // Reset state and return to Create Ingredient View
+    // Reset state and return to Select Ingredient View
     private func discard() -> Void {
         ingredientName = ""
         ingredientQuantity = ""
@@ -77,7 +78,7 @@ struct CreateIngredientView: View {
             // Add the new Ingredient with the new Id, and insert it into SwiftData
             modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits))
             
-            // Reset state
+            // Reset state, return to Select Ingredient View
             discard()
         } catch {
             // If the ingredient does not add properly, show the error

@@ -10,7 +10,6 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var recipes: [Recipe]
 
     var body: some View {
         TabView {
