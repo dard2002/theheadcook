@@ -14,6 +14,7 @@ struct CreateRecipeView: View {
     @FocusState private var showKeyboard: Bool
     @State private var showIngredientsSection: Bool = false
     @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: true, imageName: "", mealTime: Recipe.mealTimes.Dinner)
+    @State private var showAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -22,13 +23,21 @@ struct CreateRecipeView: View {
                 TextField("Tap here to edit", text: $recipeName).focused($showKeyboard)
                 
                 Button(action: {
-                    showKeyboard = false
-                    createInitialRecipe()
-                    showIngredientsSection = true
+                    if(!recipeName.isEmpty) {
+                        showKeyboard = false
+                        createInitialRecipe()
+                        showIngredientsSection = true
+                    } else {
+                        // Toggle alert on if an error with the above if statement occurs
+                        showAlert = true
+                    }
                 }, label: {
                     Text("Next")
-                })
-            } else {
+                }).alert(isPresented: $showAlert) {
+                    Alert(title: (Text("Please fix the following")), message: (Text("Add a recipe name before continuing"))
+                )}.buttonStyle(.borderedProminent).tint(.blue).padding()
+            }
+            else {
                 SelectIngredientsView(currentRecipe: $currentRecipe)
             }
         }
