@@ -15,6 +15,7 @@
 		FC77D8AD2C7774FA003D565E /* SelectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC77D8AC2C7774FA003D565E /* SelectImageView.swift */; };
 		FC997E8A2C6A53F3004D05C3 /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC997E892C6A53F3004D05C3 /* CreateRecipeView.swift */; };
 		FC997E902C6A59C9004D05C3 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC997E8F2C6A59C9004D05C3 /* Ingredient.swift */; };
+		FCAE91CC2C8998D000BC914C /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCAE91CB2C8998D000BC914C /* RecipeView.swift */; };
 		FCE0FF602C82E22B005A98A5 /* CreateIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE0FF5F2C82E22B005A98A5 /* CreateIngredientView.swift */; };
 		FCF565132C6A4E83005FC45A /* The_Head_CookApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF565122C6A4E83005FC45A /* The_Head_CookApp.swift */; };
 		FCF565152C6A4E83005FC45A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF565142C6A4E83005FC45A /* ContentView.swift */; };
@@ -52,6 +53,7 @@
 		FC77D8AC2C7774FA003D565E /* SelectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageView.swift; sourceTree = "<group>"; };
 		FC997E892C6A53F3004D05C3 /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
 		FC997E8F2C6A59C9004D05C3 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		FCAE91CB2C8998D000BC914C /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		FCE0FF5F2C82E22B005A98A5 /* CreateIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIngredientView.swift; sourceTree = "<group>"; };
 		FCE72A9E2C6A51DF00242928 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		FCF5650F2C6A4E83005FC45A /* The Head Cook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Head Cook.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +132,14 @@
 			path = "Create Recipe";
 			sourceTree = "<group>";
 		};
+		FCAE91CA2C8998C600BC914C /* View Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE91CB2C8998D000BC914C /* RecipeView.swift */,
+			);
+			path = "View Recipes";
+			sourceTree = "<group>";
+		};
 		FCE72A9D2C6A51DF00242928 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +172,7 @@
 		FCF565112C6A4E83005FC45A /* The Head Cook */ = {
 			isa = PBXGroup;
 			children = (
+				FCAE91CA2C8998C600BC914C /* View Recipes */,
 				FC7109972C71D513000AD0CD /* Meal Planner */,
 				FC78356A2C6CDED500449B7F /* Create Recipe */,
 				FC7835692C6CDEC500449B7F /* Models */,
@@ -335,6 +346,7 @@
 				FC997E902C6A59C9004D05C3 /* Ingredient.swift in Sources */,
 				FC77D8AB2C7774ED003D565E /* SelectInstructionsView.swift in Sources */,
 				FC77D8AD2C7774FA003D565E /* SelectImageView.swift in Sources */,
+				FCAE91CC2C8998D000BC914C /* RecipeView.swift in Sources */,
 				FC7109992C71D520000AD0CD /* MealPlannerView.swift in Sources */,
 				FC1A79152C6CB22D000A3399 /* DashboardView.swift in Sources */,
 				FC7109962C71D257000AD0CD /* Day.swift in Sources */,

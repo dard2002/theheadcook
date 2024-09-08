@@ -11,7 +11,6 @@ import SwiftData
 struct SelectIngredientsView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var ingredients: [Ingredient]
-    @State private var recipeIngredients: [Ingredient] = []
     @State private var ingredientToggleStates: [Int: Bool] = [:]
     @State private var showCreateIngredientView: Bool = false
     @Binding var currentRecipe: Recipe
@@ -68,7 +67,11 @@ struct SelectIngredientsView: View {
             }
             
             HStack {
-                Button(action: { showCreateIngredientView = true }, label: {(
+                Button(action: {
+                    withAnimation {
+                        showCreateIngredientView = true
+                    }
+                }, label: {(
                     Text("Create New Ingredient")
                 )}).buttonStyle(.borderedProminent).tint(.green).padding()
                 
@@ -85,15 +88,19 @@ struct SelectIngredientsView: View {
         if(currentRecipe.ingredients.contains(ingredient)) {
             print("Current recipe already contains ingredient. Continuing...")
         } else {
-            currentRecipe.ingredients.append(ingredient)
+            withAnimation {
+                currentRecipe.ingredients.append(ingredient)
+            }
         }
     }
     
     private func removeIngredientFromRecipe(ingredient: Ingredient) -> Void {
-        currentRecipe.ingredients.removeAll() {
-            $0.name == ingredient.name &&
-            $0.quantity == ingredient.quantity &&
-            $0.quantityUnits == ingredient.quantityUnits
+        withAnimation {
+            currentRecipe.ingredients.removeAll() {
+                $0.name == ingredient.name &&
+                $0.quantity == ingredient.quantity &&
+                $0.quantityUnits == ingredient.quantityUnits
+            }
         }
     }
 }
