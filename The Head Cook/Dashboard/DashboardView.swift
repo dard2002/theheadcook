@@ -12,7 +12,7 @@ struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
         @Query private var recipes: [Recipe]
         @State private var daysOfTheWeek: [String] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] // Come back to, see if there is a better way to write this
-    @State private var selectedRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: false, imageName: "", mealTime: Recipe.mealTimes.Dinner)
+    @State private var selectedRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: false, imageName: "", mealTime: Recipe.mealTimes.Dinner, image: nil   )
     @State private var showRecipeView: Bool = false
         
         var body: some View {

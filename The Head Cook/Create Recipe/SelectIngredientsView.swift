@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 import SwiftData
 
 struct SelectIngredientsView: View {
@@ -27,6 +28,21 @@ struct SelectIngredientsView: View {
                     ScrollView {
                         ForEach(ingredients.sorted(by: { $0.name < $1.name } ), id: \.id) { ingredient in
                             VStack {
+                                HStack {
+                                    if let imageData = ingredient.image, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                    } else {
+                                        // Fallback image or placeholder
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                    }
+                                }
+                                
                                 Text("\(ingredient.name)")
                                 Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
                                 
@@ -57,10 +73,26 @@ struct SelectIngredientsView: View {
                     ScrollView {
                         ForEach(currentRecipe.ingredients.sorted(by: { $0.name < $1.name } ), id: \.id) { ingredient in
                             VStack {
+                                HStack {
+                                    if let imageData = ingredient.image, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                    } else {
+                                        // Fallback image or placeholder
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                    }
+                                }
+                                
                                 Text("\(ingredient.name)")
                                 Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
+                                
+                                Divider()
                             }
-                            Divider()
                         }
                     }
                 }
