@@ -61,9 +61,11 @@ struct CreateIngredientView: View {
     
     // Reset state and return to Select Ingredient View
     private func discard() -> Void {
-        ingredientName = ""
-        ingredientQuantity = ""
-        showCreateIngredientView = false
+        withAnimation {
+            ingredientName = ""
+            ingredientQuantity = ""
+            showCreateIngredientView = false
+        }
     }
     
     private func addIngredient(name: String, quantity: Int, quantityUnits: String) -> Void {
@@ -84,7 +86,9 @@ struct CreateIngredientView: View {
             // If the ingredient does not add properly, show the error
             print("An error has occurred whilst trying to add an ingredient: \(error)")
             
-            showCreateIngredientView = false
+            withAnimation {
+                showCreateIngredientView = false
+            }
         }
     }
 }
