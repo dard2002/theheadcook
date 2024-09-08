@@ -17,7 +17,6 @@ final class Recipe: Identifiable {
     var ingredients: [Ingredient]
     var instructions: String
     var favourite: Bool
-    var imageName: String
     var mealTime: mealTimes
     var image: Data?
     
@@ -27,13 +26,12 @@ final class Recipe: Identifiable {
         Dinner
     }
     
-    init(id: Int, name: String, ingredients: [Ingredient], instructions: String, favourite: Bool, imageName: String, mealTime: mealTimes, image: Data?) {
+    init(id: Int, name: String, ingredients: [Ingredient], instructions: String, favourite: Bool, mealTime: mealTimes, image: Data?) {
         self.id = id
         self.name = name
         self.ingredients = ingredients
         self.instructions = instructions
         self.favourite = favourite
-        self.imageName = imageName
         self.mealTime = mealTime
         self.image = image
     }

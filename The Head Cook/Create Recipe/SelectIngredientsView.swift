@@ -27,39 +27,41 @@ struct SelectIngredientsView: View {
                 List {
                     ScrollView {
                         ForEach(ingredients.sorted(by: { $0.name < $1.name } ), id: \.id) { ingredient in
-                            VStack {
-                                HStack {
-                                    if let imageData = ingredient.image, let uiImage = UIImage(data: imageData) {
-                                        Image(uiImage: uiImage)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 100, height: 100)
-                                    } else {
-                                        // Fallback image or placeholder
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 100, height: 100)
-                                    }
-                                }
-                                
-                                Text("\(ingredient.name)")
-                                Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
-                                
-                                Toggle("", isOn: Binding(
-                                    get: { ingredientToggleStates[ingredient.id] ?? false },
-                                    set: { newValue in
-                                        ingredientToggleStates[ingredient.id] = newValue
-                                        if newValue {
-                                            addIngredientToRecipe(ingredient: ingredient)
+                            if(ingredients != []) {
+                                VStack {
+                                    HStack {
+                                        if let imageData = ingredient.image, let uiImage = UIImage(data: imageData) {
+                                            Image(uiImage: uiImage)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 100, height: 100)
                                         } else {
-                                            removeIngredientFromRecipe(ingredient: ingredient)
+                                            // Fallback image or placeholder
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 100, height: 100)
                                         }
                                     }
-                                )).labelsHidden()
-                                    .toggleStyle(.switch)
+                                    
+                                    Text("\(ingredient.name)")
+                                    Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
+                                    
+                                    Toggle("", isOn: Binding(
+                                        get: { ingredientToggleStates[ingredient.id] ?? false },
+                                        set: { newValue in
+                                            ingredientToggleStates[ingredient.id] = newValue
+                                            if newValue {
+                                                addIngredientToRecipe(ingredient: ingredient)
+                                            } else {
+                                                removeIngredientFromRecipe(ingredient: ingredient)
+                                            }
+                                        }
+                                    )).labelsHidden()
+                                        .toggleStyle(.switch)
+                                }
+                                Divider()
                             }
-                            Divider()
                         }
                     }
                 }
@@ -72,44 +74,46 @@ struct SelectIngredientsView: View {
                 List {
                     ScrollView {
                         ForEach(currentRecipe.ingredients.sorted(by: { $0.name < $1.name } ), id: \.id) { ingredient in
-                            VStack {
-                                HStack {
-                                    if let imageData = ingredient.image, let uiImage = UIImage(data: imageData) {
-                                        Image(uiImage: uiImage)
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 100, height: 100)
-                                    } else {
-                                        // Fallback image or placeholder
-                                        Image(systemName: "photo")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 100, height: 100)
+                            if(currentRecipe.ingredients != []) {
+                                VStack {
+                                    HStack {
+                                        if let imageData = ingredient.image, let uiImage = UIImage(data: imageData) {
+                                            Image(uiImage: uiImage)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 100, height: 100)
+                                        } else {
+                                            // Fallback image or placeholder
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 100, height: 100)
+                                        }
                                     }
+                                    
+                                    Text("\(ingredient.name)")
+                                    Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
+                                    
+                                    Divider()
                                 }
-                                
-                                Text("\(ingredient.name)")
-                                Text("\(ingredient.quantity) \(ingredient.quantityUnits)")
-                                
-                                Divider()
                             }
                         }
                     }
                 }
-            }
-            
-            HStack {
-                Button(action: {
-                    withAnimation {
-                        showCreateIngredientView = true
-                    }
-                }, label: {(
-                    Text("Create New Ingredient")
-                )}).buttonStyle(.borderedProminent).tint(.green).padding()
                 
-                Button(action: {  }, label: {(
-                    Text("Next Step")
-                )}).buttonStyle(.borderedProminent).tint(.blue).padding()
+                HStack {
+                    Button(action: {
+                        withAnimation {
+                            showCreateIngredientView = true
+                        }
+                    }, label: {(
+                        Text("Create New Ingredient")
+                    )}).buttonStyle(.borderedProminent).tint(.green).padding()
+                    
+                    Button(action: {  }, label: {(
+                        Text("Next Step")
+                    )}).buttonStyle(.borderedProminent).tint(.blue).padding()
+                }
             }
         } else {
             CreateIngredientView(showCreateIngredientView: $showCreateIngredientView, currentRecipe: $currentRecipe)
