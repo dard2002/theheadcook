@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct CreateIngredientView: View {
     @Environment(\.modelContext) private var modelContext
@@ -18,6 +19,7 @@ struct CreateIngredientView: View {
     @FocusState private var showKeyboard: Bool
     @Binding var showCreateIngredientView: Bool
     @Binding var currentRecipe: Recipe
+    @State private var selectedPhotos: [PhotosPickerItem] = []
     
     var body: some View {
         // Display the Create Ingredient View's core content, if this view should be displayed
@@ -35,6 +37,16 @@ struct CreateIngredientView: View {
                         }
                     }
                 }
+                
+                PhotosPicker(selection: $selectedPhotos,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    Image(systemName: "pencil.circle.fill")
+                        .symbolRenderingMode(.multicolor)
+                        .font(.system(size: 30))
+                        .foregroundColor(.accentColor)
+                }
+                .buttonStyle(.borderless)
                 
                 Button(action: { discard() }, label: {(
                     Text("Discard (Go Back)")

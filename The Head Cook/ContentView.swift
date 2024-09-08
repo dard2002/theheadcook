@@ -17,10 +17,10 @@ struct ContentView: View {
                 Label("Dashboard", systemImage: "clock.fill")
             }
             CreateRecipeView().tabItem {
-                Label("Create Recipe", systemImage: "cross.circle.fill")
+                Label("Create Recipe", systemImage: "plus.app")
             }
             MealPlannerView().tabItem {
-                Label("Meal Planner", systemImage: "calendar.fill")
+                Label("Meal Planner", systemImage: "calendar.circle.fill")
             }
         }
     }
