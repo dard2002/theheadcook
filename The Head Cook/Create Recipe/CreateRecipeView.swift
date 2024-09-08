@@ -13,7 +13,7 @@ struct CreateRecipeView: View {
     @State private var recipeName: String = ""
     @FocusState private var showKeyboard: Bool
     @State private var showIngredientsSection: Bool = false
-    @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: false, imageName: "", mealTime: Recipe.mealTimes.Dinner)
+    @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: true, imageName: "", mealTime: Recipe.mealTimes.Dinner)
     
     var body: some View {
         VStack {
