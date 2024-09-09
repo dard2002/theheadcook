@@ -18,7 +18,7 @@ struct CreateIngredientView: View {
     @State private var showAlert: Bool = false
     @FocusState private var showKeyboard: Bool
     @Binding var showCreateIngredientView: Bool
-    @Binding var currentRecipe: Recipe
+    @Binding var currentRecipe: Recipe?
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var selectedPhotoData: Data?
     
@@ -99,7 +99,7 @@ struct CreateIngredientView: View {
         
         do {
             // Fetch the count of ingredients by id, to determine the id (in SwiftData) of the new ingredient to be added
-            let id: Int = try modelContext.fetch(fetchDescriptor).count
+            let id: Int = try modelContext.fetch(fetchDescriptor).count + 1
             
             // Add the new Ingredient with the new Id, and insert it into SwiftData
             modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits, image: selectedPhotoData ?? nil))

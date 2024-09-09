@@ -51,26 +51,28 @@ struct DashboardView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(recipes.filter { $0.favourite }, id: \.id) { recipe in
-                            VStack {
-                                Text("\(recipe.name)")
-                                if let imageData = recipe.image, let uiImage = UIImage(data: imageData) {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 100)
-                                } else {
-                                    // Fallback image or placeholder
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 100, height: 100)
-                                }
-                                Button(action: {
-                                    displayRecipe(recipe: recipe)
-                                }, label: {
-                                    Text("Show Recipe")
-                                })
-                            }.padding().frame(width: 212.5, height: 300)
+                            if(recipe.name != "") {
+                                VStack {
+                                    Text("\(recipe.name)")
+                                    if let imageData = recipe.image, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                    } else {
+                                        // Fallback image or placeholder
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 100, height: 100)
+                                    }
+                                    Button(action: {
+                                        displayRecipe(recipe: recipe)
+                                    }, label: {
+                                        Text("Show Recipe")
+                                    }).buttonStyle(.borderedProminent).tint(.blue).padding()
+                                }.padding().frame(width: 212.5, height: 300)
+                            }
                         }
                     }
                 }

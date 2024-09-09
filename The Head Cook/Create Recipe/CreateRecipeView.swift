@@ -14,7 +14,7 @@ struct CreateRecipeView: View {
     @State private var recipeName: String = ""
     @FocusState private var showKeyboard: Bool
     @State private var showIngredientsSection: Bool = false
-    @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: true, mealTime: Recipe.mealTimes.Dinner, image: nil)
+    @State private var currentRecipe: Recipe?
     @State private var showAlert: Bool = false
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var selectedPhotoData: Data?
@@ -73,8 +73,11 @@ struct CreateRecipeView: View {
         fetchDescriptor.propertiesToFetch = [\.id]
         
         do {
-            let id: Int = try modelContext.fetch(fetchDescriptor).count
-            modelContext.insert(Recipe(id: id, name: recipeName, ingredients: [], instructions: "", favourite: true, mealTime: Recipe.mealTimes.Dinner, image: selectedPhotoData))
+            let id: Int = try modelContext.fetch(fetchDescriptor).count + 1
+            let recipe: Recipe = Recipe(id: id, name: recipeName, ingredients: [], instructions: "", favourite: true, mealTime: Recipe.mealTimes.Dinner, image: selectedPhotoData)
+            modelContext.insert(recipe)
+            
+            currentRecipe = recipe
         } catch {
             print("An error has occured whilst trying to add a recipe: \(error)")
         }
