@@ -96,3 +96,9 @@ struct CreateRecipeView: View {
         }
     }
 }
+
+#Preview {
+    CreateRecipeView()
+        .modelContainer(for: Recipe.self, inMemory: true)
+}
+
