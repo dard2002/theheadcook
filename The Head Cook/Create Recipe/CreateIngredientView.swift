@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct CreateIngredientView: View {
     @Environment(\.modelContext) private var modelContext
@@ -17,7 +18,9 @@ struct CreateIngredientView: View {
     @State private var showAlert: Bool = false
     @FocusState private var showKeyboard: Bool
     @Binding var showCreateIngredientView: Bool
-    @Binding var currentRecipe: Recipe
+    @Binding var currentRecipe: Recipe?
+    @State private var selectedPhoto: PhotosPickerItem?
+    @State private var selectedPhotoData: Data?
     
     var body: some View {
         // Display the Create Ingredient View's core content, if this view should be displayed
@@ -35,6 +38,27 @@ struct CreateIngredientView: View {
                         }
                     }
                 }
+                
+                HStack {
+                    Text("Add an Image")
+                    PhotosPicker(selection: $selectedPhoto,
+                                 matching: .images,
+                                 photoLibrary: .shared()) {
+                        Image(systemName: "photo.badge.plus")
+                            .symbolRenderingMode(.multicolor)
+                            .font(.system(size: 30))
+                            .foregroundColor(.accentColor)
+                    }.onChange(of: selectedPhoto) { newItem in
+                        if let newItem = newItem {
+                            Task {
+                                if let data = try? await newItem.loadTransferable(type: Data.self) {
+                                    selectedPhotoData = data
+                                }
+                            }
+                        }
+                    }.buttonStyle(.borderless)
+                }
+                
                 
                 Button(action: { discard() }, label: {(
                     Text("Discard (Go Back)")
@@ -75,10 +99,10 @@ struct CreateIngredientView: View {
         
         do {
             // Fetch the count of ingredients by id, to determine the id (in SwiftData) of the new ingredient to be added
-            let id: Int = try modelContext.fetch(fetchDescriptor).count
+            let id: Int = try modelContext.fetch(fetchDescriptor).count + 1
             
             // Add the new Ingredient with the new Id, and insert it into SwiftData
-            modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits))
+            modelContext.insert(Ingredient(id: id, name: name, quantity: quantity, quantityUnits: quantityUnits, image: selectedPhotoData ?? nil))
             
             // Reset state, return to Select Ingredient View
             discard()

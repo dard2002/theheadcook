@@ -7,18 +7,22 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
+import PhotosUI
 
 @Model
-final class Ingredient: ObservableObject, Identifiable {
+final class Ingredient: Identifiable {
     var id: Int
     var name: String
     var quantity: Int
     var quantityUnits: String
+    var image: Data?
     
-    init(id: Int, name: String, quantity: Int, quantityUnits: String) {
+    init(id: Int, name: String, quantity: Int, quantityUnits: String, image: Data?) {
         self.id = id
         self.name = name
         self.quantity = quantity
         self.quantityUnits = quantityUnits
+        self.image = image
     }
 }
