@@ -16,6 +16,9 @@ struct CreateRecipeView: View {
     @State private var showIngredientsSection: Bool = false
     @State private var currentRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: true, mealTime: Recipe.mealTimes.Dinner, image: nil)
     @State private var showAlert: Bool = false
+    @State private var selectedPhoto: PhotosPickerItem?
+    @State private var selectedPhotoData: Data?
+    @Query private var recipes: [Recipe]
     
     var body: some View {
         VStack {
@@ -37,6 +40,27 @@ struct CreateRecipeView: View {
                 }).alert(isPresented: $showAlert) {
                     Alert(title: (Text("Please fix the following")), message: (Text("Add a recipe name before continuing"))
                 )}.buttonStyle(.borderedProminent).tint(.blue).padding()
+                
+                Text("Select an Image for your Recipe").font(.title2).bold()
+                HStack {
+                    Text("Add an Image")
+                    PhotosPicker(selection: $selectedPhoto,
+                                 matching: .images,
+                                 photoLibrary: .shared()) {
+                        Image(systemName: "photo.badge.plus")
+                            .symbolRenderingMode(.multicolor)
+                            .font(.system(size: 30))
+                            .foregroundColor(.accentColor)
+                    }.onChange(of: selectedPhoto) { newItem in
+                        if let newItem = newItem {
+                            Task {
+                                if let data = try? await newItem.loadTransferable(type: Data.self) {
+                                    selectedPhotoData = data
+                                }
+                            }
+                        }
+                    }.buttonStyle(.borderless)
+                }
             }
             else {
                 SelectIngredientsView(currentRecipe: $currentRecipe)
@@ -50,7 +74,7 @@ struct CreateRecipeView: View {
         
         do {
             let id: Int = try modelContext.fetch(fetchDescriptor).count
-            modelContext.insert(Recipe(id: id, name: recipeName, ingredients: [], instructions: "", favourite: false, mealTime: Recipe.mealTimes.Dinner, image: nil))
+            modelContext.insert(Recipe(id: id, name: recipeName, ingredients: [], instructions: "", favourite: true, mealTime: Recipe.mealTimes.Dinner, image: selectedPhotoData))
         } catch {
             print("An error has occured whilst trying to add a recipe: \(error)")
         }

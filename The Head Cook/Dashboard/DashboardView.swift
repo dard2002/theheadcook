@@ -12,7 +12,7 @@ struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var recipes: [Recipe]
     @State private var daysOfTheWeek: [String] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] // Come back to, see if there is a better way to write this
-    @State private var selectedRecipe: Recipe = Recipe(id: 0, name: "", ingredients: [], instructions: "", favourite: false, mealTime: Recipe.mealTimes.Dinner, image: nil)
+    @State private var selectedRecipe: Recipe?
     @State private var showRecipeView: Bool = false
     
     var body: some View {
@@ -45,7 +45,8 @@ struct DashboardView: View {
                         }
                     }.padding().frame(width: 750, height: 300)
                 }
-                    Text("Your Favourite Recipes").font(.title2.bold())
+                
+                Text("Your Favourite Recipes").font(.title2.bold())
                     
                 ScrollView(.horizontal) {
                     HStack {
@@ -64,7 +65,6 @@ struct DashboardView: View {
                                         .scaledToFit()
                                         .frame(width: 100, height: 100)
                                 }
-                                // TODO: Update button action below, to display the recipe in the View Recipes View once that feature has been implemented
                                 Button(action: {
                                     displayRecipe(recipe: recipe)
                                 }, label: {
@@ -74,7 +74,6 @@ struct DashboardView: View {
                         }
                     }
                 }
-                
                 Spacer()
             }
         }
@@ -83,7 +82,6 @@ struct DashboardView: View {
         }
     }
 
-    
     private func displayRecipe(recipe: Recipe) -> Void {
         selectedRecipe = recipe
         showRecipeView = true
