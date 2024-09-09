@@ -1,5 +1,5 @@
 //
-//  MealPlan.swift
+//  Day.swift
 //  The Head Cook
 //
 //  Created by Dylan Armstrong on 18/8/2024.
