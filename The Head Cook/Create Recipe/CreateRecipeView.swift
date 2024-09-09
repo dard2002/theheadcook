@@ -22,9 +22,13 @@ struct CreateRecipeView: View {
     var body: some View {
         VStack {
             if(!showIngredientsSection) {
-                Text("First, let's name your recipe:")
+                Text("First, let's name your recipe:").font(.title2).bold()
                 TextField("Tap here to edit", text: $recipeName).focused($showKeyboard)
                 
+                /*
+                 This button will create the initial recipe if the recipe name is not empty, otherwise
+                 it will display the alert below saying to "Add a recipe name before continuing".
+                */
                 Button(action: {
                     if(!recipeName.isEmpty) {
                         createInitialRecipe()
@@ -37,7 +41,8 @@ struct CreateRecipeView: View {
                     Alert(title: (Text("Please fix the following")), message: (Text("Add a recipe name before continuing"))
                     )}.buttonStyle(.borderedProminent).tint(.blue).padding()
                 
-                Text("Select an Image for your Recipe").font(.title2).bold()
+                Text("Select an Image for your Recipe")
+                
                 HStack {
                     Text("Add an Image")
                     PhotosPicker(selection: $selectedPhoto,
@@ -59,11 +64,20 @@ struct CreateRecipeView: View {
                 }
             }
             else {
+                // Current recipe is checked for null safety in the SelectIngredientsView
                 SelectIngredientsView(currentRecipe: $currentRecipe)
             }
         }
     }
     
+    /*
+     This function creates the initial recipe, with no ingredients and assigns the newly created recipe an id.
+     
+     Then the function will insert that recipe into SwiftData, assign the currentRecipe as the recipe for the SelectIngredientsView
+     and then show the SelectIngredientsView by setting showIngredientsSection to true.
+     
+     If an error occurs, a error will be printed to the console.
+    */
     private func createInitialRecipe() -> Void {
         showKeyboard = false
         var fetchDescriptor = FetchDescriptor<Recipe>()
